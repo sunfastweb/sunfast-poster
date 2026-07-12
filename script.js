@@ -1,107 +1,256 @@
-/* ==========================
-   PORTFOLIO
-========================== */
+/* ===========================
+   SUNFAST WEB SOLUTIONS
+   PREMIUM JS PART 3A
+=========================== */
 
-.portfolio{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
+"use strict";
+
+/* ===========================
+   SELECT ELEMENTS
+=========================== */
+
+const header = document.querySelector("header");
+const menuLinks = document.querySelectorAll(".menu a");
+const topBtn = document.querySelector(".top-btn");
+const revealItems = document.querySelectorAll(
+".service-card,.project-card,.price-card,.testimonial,.about,.contact"
+);
+
+/* ===========================
+   STICKY HEADER
+=========================== */
+
+window.addEventListener("scroll", () => {
+
+if(window.scrollY > 80){
+
+header.classList.add("sticky");
+
+}else{
+
+header.classList.remove("sticky");
+
 }
 
-.project-card{
-background:#fff;
-border-radius:20px;
-overflow:hidden;
-box-shadow:var(--shadow);
-transition:var(--transition);
+});
+
+
+/* ===========================
+   ACTIVE MENU
+=========================== */
+
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll",()=>{
+
+let current="";
+
+sections.forEach(section=>{
+
+const top=section.offsetTop-120;
+
+const height=section.clientHeight;
+
+if(scrollY>=top){
+
+current=section.getAttribute("id");
+
 }
 
-.project-card:hover{
-transform:translateY(-10px);
+});
+
+menuLinks.forEach(link=>{
+
+link.classList.remove("active");
+
+if(link.getAttribute("href")==="#"+current){
+
+link.classList.add("active");
+
 }
 
-.project-image{
-height:230px;
-background:linear-gradient(135deg,#0f172a,#334155);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:60px;
-color:#fff;
+});
+
+});
+
+
+/* ===========================
+   SMOOTH SCROLL
+=========================== */
+
+menuLinks.forEach(link=>{
+
+link.addEventListener("click",function(e){
+
+e.preventDefault();
+
+const target=document.querySelector(this.getAttribute("href"));
+
+window.scrollTo({
+
+top:target.offsetTop-70,
+
+behavior:"smooth"
+
+});
+
+});
+
+});
+
+
+/* ===========================
+   REVEAL ON SCROLL
+=========================== */
+
+function reveal(){
+
+const trigger=window.innerHeight-120;
+
+revealItems.forEach(item=>{
+
+const top=item.getBoundingClientRect().top;
+
+if(top<trigger){
+
+item.classList.add("show");
+
 }
 
-.project-content{
-padding:25px;
+});
+
 }
 
-.project-content h3{
-font-size:24px;
-margin-bottom:10px;
+window.addEventListener("scroll",reveal);
+
+reveal();
+
+
+/* ===========================
+   BACK TO TOP
+=========================== */
+
+if(topBtn){
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>400){
+
+topBtn.style.display="flex";
+
+}else{
+
+topBtn.style.display="none";
+
 }
 
-.project-content p{
-color:var(--gray);
-margin-bottom:20px;
+});
+
+topBtn.addEventListener("click",()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+});
+
 }
 
-/* ==========================
-   PRICING
-========================== */
 
-.pricing{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
+/* ===========================
+   BUTTON HOVER EFFECT
+=========================== */
+
+const buttons=document.querySelectorAll(".btn");
+
+buttons.forEach(btn=>{
+
+btn.addEventListener("mouseenter",()=>{
+
+btn.style.transform="translateY(-3px)";
+
+});
+
+btn.addEventListener("mouseleave",()=>{
+
+btn.style.transform="translateY(0px)";
+
+});
+
+});
+
+
+/* ===========================
+   HERO FADE
+=========================== */
+
+const hero=document.querySelector(".hero");
+
+window.addEventListener("scroll",()=>{
+
+if(hero){
+
+hero.style.opacity=
+
+1-window.scrollY/900;
+
 }
 
-.price-card{
-background:#fff;
-padding:40px;
-border-radius:20px;
-text-align:center;
-box-shadow:var(--shadow);
-transition:.35s;
-}
+});
 
-.price-card:hover{
-transform:scale(1.04);
-}
 
-.price-card.active{
-background:linear-gradient(135deg,#ff7a00,#ffb347);
-color:#fff;
-}
+/* ===========================
+   PARALLAX EFFECT
+=========================== */
 
-.price{
-font-size:50px;
-font-weight:bold;
-margin:20px 0;
-}
+window.addEventListener("scroll",()=>{
 
-.price-card ul li{
-padding:12px 0;
-border-bottom:1px solid rgba(0,0,0,.08);
-}
+const y=window.pageYOffset;
 
-/* ==========================
-   TESTIMONIALS
-========================== */
+document.body.style.backgroundPositionY=
 
-.testimonials{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
-}
+-(y*0.08)+"px";
 
-.testimonial{
-background:#fff;
-padding:35px;
-border-radius:20px;
-box-shadow:var(--shadow);
-}
+});
 
-.testimonial p{
-font-style:italic;
+
+/* ===========================
+   IMAGE HOVER
+=========================== */
+
+document.querySelectorAll(".project-image")
+.forEach(img=>{
+
+img.addEventListener("mouseenter",()=>{
+
+img.style.transform="scale(1.05)";
+
+});
+
+img.addEventListener("mouseleave",()=>{
+
+img.style.transform="scale(1)";
+
+});
+
+});
+
+
+/* ===========================
+   PAGE LOADED
+=========================== */
+
+window.addEventListener("load",()=>{
+
+document.body.classList.add("loaded");
+
+});
+
+console.log("Sunfast Premium JS Loaded");font-style:italic;
 color:var(--gray);
 margin-bottom:20px;
 }
